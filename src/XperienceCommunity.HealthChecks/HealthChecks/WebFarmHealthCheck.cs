@@ -53,11 +53,6 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             }
         }
 
-        protected override IEnumerable<WebFarmServerInfo> GetDataForType()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override async Task<List<WebFarmServerInfo>> GetDataForTypeAsync(
             CancellationToken cancellationToken = default)
         {

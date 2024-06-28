@@ -9,11 +9,6 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
     /// <typeparam name="T">The type of the Kentico object.</typeparam>
     public abstract class BaseKenticoHealthCheck<T> where T : BaseInfo
     {
-        /// <summary>
-        /// Gets the data for the specified Kentico object type.
-        /// </summary>
-        /// <returns>An enumerable collection of Kentico objects.</returns>
-        protected abstract IEnumerable<T> GetDataForType();
 
         /// <summary>
         /// Gets the data for the specified Kentico object type asynchronously.

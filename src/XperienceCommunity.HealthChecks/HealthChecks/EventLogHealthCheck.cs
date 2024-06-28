@@ -53,23 +53,9 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             }
         }
 
-        protected override IEnumerable<EventLogInfo> GetDataForType()
-        {
-            var query = _eventLogInfoProvider.Get()
-                .Where(new WhereCondition()
-                    .WhereEquals(nameof(EventLogInfo.EventType), "E")
-                    .And()
-                    .WhereNotEquals(nameof(EventLogInfo.Source), nameof(HealthReport))
-                    .And()
-                    .WhereGreaterOrEquals(nameof(EventLogInfo.EventTime), DateTime.UtcNow.AddHours(-12)))
-                .Columns(s_columnNames);
-
-            return query.ToList();
-        }
-
         protected override async Task<List<EventLogInfo>> GetDataForTypeAsync(CancellationToken cancellationToken = default)
         {
-            using (new CMSConnectionScope(true))
+            using (new CMSConnectionScope())
             {
                 var query = _eventLogInfoProvider.Get()
                     .Where(new WhereCondition()

@@ -53,12 +53,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                 return HandleException(e);
             }
         }
-
-        protected override IEnumerable<EmailInfo> GetDataForType()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         protected override async Task<List<EmailInfo>> GetDataForTypeAsync(
             CancellationToken cancellationToken = default)
         {

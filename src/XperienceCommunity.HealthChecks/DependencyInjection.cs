@@ -28,6 +28,5 @@ namespace XperienceCommunity.HealthChecks
                 .AddCheck<WebFarmTaskHealthCheck>("Web Farm Task Health Check", tags: s_tags)
                 .AddCheck<EmailHealthCheck>("Email Health Check", tags: s_tags);
         }
-
     }
 }

@@ -52,20 +52,10 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             }
         }
 
-        protected override IEnumerable<WebFarmServerTaskInfo> GetDataForType()
-        {
-            var query = _webFarmTaskInfoProvider
-                .Get()
-                .Columns(s_columnNames)
-                .WhereNotNullOrEmpty(nameof(WebFarmServerTaskInfo.ErrorMessage))
-                .TopN(50);
-
-            return query.ToList();
-        }
 
         protected override async Task<List<WebFarmServerTaskInfo>> GetDataForTypeAsync(CancellationToken cancellationToken = default)
         {
-            using (new CMSConnectionScope(true))
+            using (new CMSConnectionScope())
             {
                 var query = _webFarmTaskInfoProvider
                     .Get()

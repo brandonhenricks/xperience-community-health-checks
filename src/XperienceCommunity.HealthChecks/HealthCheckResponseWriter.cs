@@ -10,7 +10,7 @@ namespace XperienceCommunity.HealthChecks
     /// <remarks>Provides a more detailed output than Health, Unhealthy, Degraded.</remarks>
     public static class HealthCheckResponseWriter
     {
-        private static JsonWriterOptions s_Options = new JsonWriterOptions() { Indented = true };
+        private static readonly JsonWriterOptions s_Options = new JsonWriterOptions() { Indented = true };
         private const string JsonContentType = "application/json; charset=utf-8";
 
         /// <summary>
