@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-1. .NET 8 
+1. .NET 6 / .NET 8 
 2. Xperience By Kentico Application.
 
 ### Installing
