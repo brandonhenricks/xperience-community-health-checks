@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 This package provides a set of Kentico-specific health checks that you can easily add to your ASP.NET Core project. Here's how you can do it:
 
-1. First, make sure you have the necessary dependencies installed. You will need the `Microsoft.Extensions.DependencyInjection` package for the `IServiceCollection` interface.
+1. First, make sure you have the necessary dependencies installed. You will need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for the `IServiceCollection` interface.
 
 2. Install this package via NuGet.
 
