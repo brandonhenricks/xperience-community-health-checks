@@ -33,7 +33,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
             try
             {
-                var currentTimePlusTwoHours = DateTime.UtcNow.AddHours(-1);
+                var currentTimePlusTwoHours = DateTime.UtcNow.AddHours(-2);
 
                 var data = await GetDataForTypeAsync(cancellationToken);
 
@@ -65,6 +65,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                 var query = _emailInfoProvider.Get()
                     .Columns(s_columnNames)
                     .WhereEquals(nameof(EmailInfo.EmailStatus), EmailStatusEnum.Waiting)
+                    .OrderByDescending(nameof(EmailInfo.EmailLastSendAttempt))
                     .TopN(100);
 
                 return await query.ToListAsync(cancellationToken: cancellationToken);
