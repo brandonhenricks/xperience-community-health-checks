@@ -1,10 +1,12 @@
 # XperienceCommunity.HealthChecks
 
-This project is a NuGet package specifically designed to integrate Kentico Health Checks into applications using the Microsoft.AspNetCore.Health framework. It provides a set of custom health checks that monitor various aspects of a Kentico application, ensuring its optimal performance and stability.
+This project is a NuGet package specifically designed to integrate Health Checks into your Xperience By Kentico site using the Microsoft.AspNetCore.Health framework. It provides a set of custom health checks that monitor various aspects of a Kentico application, ensuring its optimal performance and stability.
 
 The health checks included in this package cover a wide range of Kentico functionalities, from site configuration and event logs to web farm and search tasks. By leveraging the Microsoft.AspNetCore.Health framework, these health checks can be easily added to any ASP.NET Core application, providing developers with immediate insights into the health of their Kentico applications.
 
-This package is an essential tool for any developer working with Kentico in an ASP.NET Core environment, simplifying the process of monitoring and maintaining the health of their applications.
+This package is an essential tool for any developer working with Xperience by Kentico in an ASP.NET Core environment, simplifying the process of monitoring and maintaining the health of their applications.
+
+If you are using Kentico XP 13, please use the package [XperienceCommunity.AspNetCore.HealthChecks](https://github.com/brandonhenricks/XperienceCommunity.AspNetCore.HealthChecks)
 
 ## Getting Started
 
@@ -125,7 +127,7 @@ The `WebFarmTaskHealthCheck` class is an implementation of the `IHealthCheck` in
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/brandonhenricks/xperience-community-health-checks/tags). 
 
 ## Authors
 
