@@ -19,7 +19,7 @@ To integrate Kentico Health Checks into your ASP.NET Core application, follow th
     - Verify that your application is a Xperience by Kentico application.
 
 2. **Install Required Package:**
-    - You need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for utilizing the `IServiceCollection` interface. If not already installed, you can add it via NuGet with the following command:
+    - You need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for utilizing the `IHealthChecksBuilder` interface. If not already installed, you can add it via NuGet with the following command:
       ```
       dotnet add package Microsoft.Extensions.Diagnostics.HealthChecks
       ```
