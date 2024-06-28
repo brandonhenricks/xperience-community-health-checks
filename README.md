@@ -10,86 +10,90 @@ This package is an essential tool for any developer working with Kentico in an A
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+### Installation Instructions
 
-1. .NET 6 / .NET 8 
-2. Xperience By Kentico Application.
+To integrate Kentico Health Checks into your ASP.NET Core application, follow these steps:
 
-### Installing
+1. **Ensure Prerequisites:**
+    - Make sure your application is running on `.NET 6` or `.NET 8`.
+    - Verify that your application is a Xperience by Kentico application.
 
-This package provides a set of Kentico-specific health checks that you can easily add to your ASP.NET Core project. Here's how you can do it:
+2. **Install Required Package:**
+    - You need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for utilizing the `IServiceCollection` interface. If not already installed, you can add it via NuGet with the following command:
+      ```
+      dotnet add package Microsoft.Extensions.Diagnostics.HealthChecks
+      ```
 
-1. First, make sure you have the necessary dependencies installed. You will need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for the `IServiceCollection` interface.
+3. **Install Kentico Health Checks Package:**
+    - Install the XperienceCommunity.HealthChecks package via NuGet using the following command:
+      ```
+      dotnet add package XperienceCommunity.HealthChecks
+      ```
 
-2. Install this package via NuGet.
+4. **Configure Services:**
+    - In your `Startup.cs` or `Program.cs` file, where you configure your services, add the Kentico Health Checks. You can add all available health checks or specific ones based on your needs.
 
-3. In your `Startup.cs`, or `Program.cs` file (or wherever you configure your services), use the `AddKenticoHealthChecks` extension method on your `IServiceCollection` instance. Here's an example:
+      **To add all Kentico Health Checks:**
+      ```csharp
+      public void ConfigureServices(IServiceCollection services)
+      {
+            services
+            .AddHealthChecks()
+            .AddKenticoHealthChecks();
+      }
+      ```
+
+      **To add specific Kentico Health Checks:**
+      ```csharp
+      public void ConfigureServices(IServiceCollection services)
+      {
+            services.AddHealthChecks()
+                      .AddCheck<WebFarmHealthCheck>("Site Configuration Health Check");
+      }
+      ```
+
+5. **Middleware Registration:**
+    - Register the health checks middleware in your `Startup.cs` or equivalent configuration file to expose the health checks via an HTTP endpoint.
+
+      ```csharp
+      public void Configure(IApplicationBuilder app)
+      {    
+            app.UseHealthChecks("/kentico-health");
+      }
+      ```
+
+6. **Endpoint Registration**
+
+    - In your `Startup.cs` file (or equivalent configuration file), use the `MapHealthChecks` extension method on your `IEndpointRouteBuilder` instance. This registers the health checks as an endpoint.
 
 
-#### Add all Kentico Health Checks
-This method will add all the Kentico Health checks to your application.
+    ```csharp
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHealthChecks("/kentico-health");
+    }
+    ```
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services
-    .AddHealthChecks()
-    .AddKenticoHealthChecks();
-}
-```
+7. **Endpoint Registration with Custom Writer**
 
-#### Add specific Kentico Health Checks
-This method will allow you the most flexibility to add only the health checks you want for your application.
+    - In your `Startup.cs` file (or equivalent configuration file), use the `MapHealthChecks` extension method on your `IEndpointRouteBuilder` instance. This registers the health checks as an endpoint.
+    This allows you to customize your HealthCheckOptions class, and specifiy a custom Response Writer.
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddHealthChecks()
-            .AddCheck<WebFarmHealthCheck>("Site Configuration Health Check");
-}
-```
+    Here's an example:
 
-#### Middleware Registration
+    ```csharp
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHealthChecks("/kentico-health",
+            new HealthCheckOptions()
+            {
+                AllowCachingResponses = true,
+                ResponseWriter = HealthCheckResponseWriter.WriteResponse
+            });
+    }
+    ```
 
-In your `Startup.cs` file (or wherever you configure your application), use the `UseHealthChecks` extension method on your `IApplicationBuilder` instance. This registers the health checks as middleware.Here's an example:
-
-```csharp
-public void Configure(IApplicationBuilder app)
-{    
-    app.UseHealthChecks("/kentico-health");
-}
-```
-
-#### Endpoint Registration
-
-In your `Startup.cs` file (or wherever you configure your application), use the `MapHealthChecks` extension method on your `IEndpointRouteBuilder` instance. This registers the health checks as an endpoint.
-Here's an example:
-
-```csharp
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHealthChecks("/kentico-health");
-}
-```
-
-#### Endpoint Registration with Custom Writer
-
-In your `Startup.cs` file (or wherever you configure your application), use the `MapHealthChecks` extension method on your `IEndpointRouteBuilder` instance. This registers the health checks as an endpoint.
-This allows you to customize your HealthCheckOptions class, and specifiy a custom Response Writer.
-
-Here's an example:
-
-```csharp
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHealthChecks("/kentico-health",
-        new HealthCheckOptions()
-        {
-            AllowCachingResponses = true,
-            ResponseWriter = HealthCheckResponseWriter.WriteResponse
-        });
-}
-```
+By following these steps, you will successfully integrate Kentico Health Checks into your ASP.NET Core application, allowing you to monitor various aspects of your Kentico application's health.
 
 ## Health Checks
 
