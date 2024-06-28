@@ -28,7 +28,7 @@ namespace XperienceCommunity.HealthChecks.Extensions
             {
                 var results = await query
                     .GetTypedQuery()
-                    .GetEnumerableTypedResultAsync(commandBehavior: CommandBehavior.Default, false,
+                    .GetEnumerableTypedResultAsync(commandBehavior: CommandBehavior.CloseConnection, true,
                         cancellationToken: cancellationToken);
 
                 return results?.ToList() ?? new List<TObject>(0);

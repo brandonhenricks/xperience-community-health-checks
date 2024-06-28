@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMS.Base;
 using CMS.DataEngine;
 using CMS.EmailEngine;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -57,6 +58,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         protected override async Task<List<EmailInfo>> GetDataForTypeAsync(
             CancellationToken cancellationToken = default)
         {
+            ContextUtils.ResetCurrent();
+
             using (new CMSConnectionScope(true))
             {
                 var query = _emailInfoProvider.Get()

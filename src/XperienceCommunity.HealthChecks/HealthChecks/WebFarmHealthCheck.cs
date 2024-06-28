@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMS.Base;
 using CMS.DataEngine;
 using CMS.WebFarmSync;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -56,7 +57,9 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         protected override async Task<List<WebFarmServerInfo>> GetDataForTypeAsync(
             CancellationToken cancellationToken = default)
         {
-            using (new CMSConnectionScope())
+            ContextUtils.ResetCurrent();
+
+            using (new CMSConnectionScope(true))
             {
                 var query = _webFarmServerInfoProvider
                     .Get();

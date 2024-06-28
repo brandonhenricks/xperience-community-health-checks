@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CMS.Base;
 using CMS.DataEngine;
 using CMS.EventLog;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -55,7 +56,9 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
         protected override async Task<List<EventLogInfo>> GetDataForTypeAsync(CancellationToken cancellationToken = default)
         {
-            using (new CMSConnectionScope())
+            ContextUtils.ResetCurrent();
+
+            using (new CMSConnectionScope(true))
             {
                 var query = _eventLogInfoProvider.Get()
                     .Where(new WhereCondition()
