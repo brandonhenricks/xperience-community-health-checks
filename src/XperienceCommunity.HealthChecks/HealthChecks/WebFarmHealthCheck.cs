@@ -12,11 +12,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
     /// </summary>
     public sealed class WebFarmHealthCheck : BaseKenticoHealthCheck<WebFarmServerInfo>, IHealthCheck
     {
-        private readonly IInfoProvider<WebFarmServerInfo> _webFarmServerInfoProvider;
-
-        public WebFarmHealthCheck(IInfoProvider<WebFarmServerInfo> webFarmServerInfoProvider)
+        public WebFarmHealthCheck(IInfoProvider<WebFarmServerInfo> infoProvider) : base(infoProvider)
         {
-            _webFarmServerInfoProvider = webFarmServerInfoProvider;
         }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
@@ -61,7 +58,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
             using (new CMSConnectionScope(true))
             {
-                var query = _webFarmServerInfoProvider
+                var query = Provider
                     .Get();
 
                 return await query.ToListAsync(cancellationToken: cancellationToken);

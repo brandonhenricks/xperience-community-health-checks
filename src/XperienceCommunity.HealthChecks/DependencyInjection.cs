@@ -26,6 +26,7 @@ namespace XperienceCommunity.HealthChecks
                 .AddCheck<EventLogHealthCheck>("Event Log Health Check", tags: s_tags)
                 .AddCheck<WebFarmHealthCheck>("Web Farm Health Check", tags: s_tags)
                 .AddCheck<WebFarmTaskHealthCheck>("Web Farm Task Health Check", tags: s_tags)
+                .AddCheck<WebsiteChannelHealthCheck>("Website Channel Health Check", tags: s_tags)
                 .AddCheck<EmailHealthCheck>("Email Health Check", tags: s_tags);
         }
     }

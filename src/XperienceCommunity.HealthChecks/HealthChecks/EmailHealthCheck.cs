@@ -16,11 +16,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             nameof(EmailInfo.EmailID)
         ];
 
-        private readonly IInfoProvider<EmailInfo> _emailInfoProvider;
-
-        public EmailHealthCheck(IInfoProvider<EmailInfo> emailInfoProvider)
+        public EmailHealthCheck(IInfoProvider<EmailInfo> infoProvider) : base(infoProvider)
         {
-            _emailInfoProvider = emailInfoProvider;
         }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
@@ -54,7 +51,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                 return HandleException(e);
             }
         }
-        
+
         protected override async Task<List<EmailInfo>> GetDataForTypeAsync(
             CancellationToken cancellationToken = default)
         {
@@ -62,7 +59,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
             using (new CMSConnectionScope(true))
             {
-                var query = _emailInfoProvider.Get()
+                var query = Provider.Get()
                     .Columns(s_columnNames)
                     .WhereEquals(nameof(EmailInfo.EmailStatus), EmailStatusEnum.Waiting)
                     .OrderByDescending(nameof(EmailInfo.EmailLastSendAttempt))

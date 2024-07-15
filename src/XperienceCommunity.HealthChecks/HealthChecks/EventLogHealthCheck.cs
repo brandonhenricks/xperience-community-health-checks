@@ -13,8 +13,6 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
     /// <remarks>Investigates the Last 12 Hours of Event Log Entries for Errors.</remarks>
     public sealed class EventLogHealthCheck : BaseKenticoHealthCheck<EventLogInfo>, IHealthCheck
     {
-        private readonly IInfoProvider<EventLogInfo> _eventLogInfoProvider;
-
         private static readonly string[] s_columnNames =
         [
             nameof(EventLogInfo.EventType),
@@ -24,9 +22,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             nameof(EventLogInfo.EventDescription)
         ];
 
-        public EventLogHealthCheck(IInfoProvider<EventLogInfo> eventLogInfoProvider)
+        public EventLogHealthCheck(IInfoProvider<EventLogInfo> infoProvider) : base(infoProvider)
         {
-            _eventLogInfoProvider = eventLogInfoProvider;
         }
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
@@ -46,7 +43,10 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                     .OrderByDescending(x => x.EventID)
                     .ToList();
 
-                return exceptionEvents.Count >= 25 ? HealthCheckResult.Degraded($"There are {exceptionEvents.Count} errors in the event log.", null, GetErrorData(exceptionEvents)) : HealthCheckResult.Healthy();
+                return exceptionEvents.Count >= 25
+                    ? HealthCheckResult.Degraded($"There are {exceptionEvents.Count} errors in the event log.", null,
+                        GetErrorData(exceptionEvents))
+                    : HealthCheckResult.Healthy();
             }
             catch (Exception e)
             {
@@ -54,13 +54,14 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             }
         }
 
-        protected override async Task<List<EventLogInfo>> GetDataForTypeAsync(CancellationToken cancellationToken = default)
+        protected override async Task<List<EventLogInfo>> GetDataForTypeAsync(
+            CancellationToken cancellationToken = default)
         {
             ContextUtils.ResetCurrent();
 
             using (new CMSConnectionScope(true))
             {
-                var query = _eventLogInfoProvider.Get()
+                var query = Provider.Get()
                     .Where(new WhereCondition()
                         .WhereEquals(nameof(EventLogInfo.EventType), "E")
                         .And()
@@ -75,7 +76,9 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
         protected override IReadOnlyDictionary<string, object> GetErrorData(IEnumerable<EventLogInfo> objects)
         {
-            var dictionary = objects.ToDictionary<EventLogInfo, string, object>(e => e.EventID.ToString(), ev => ev.EventDescription);
+            var dictionary =
+                objects.ToDictionary<EventLogInfo, string, object>(e => e.EventID.ToString(),
+                    ev => ev.EventDescription);
 
             return new ReadOnlyDictionary<string, object>(dictionary);
         }

@@ -12,19 +12,15 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
     /// </summary>
     public sealed class WebFarmTaskHealthCheck : BaseKenticoHealthCheck<WebFarmServerTaskInfo>, IHealthCheck
     {
-        private readonly IInfoProvider<WebFarmServerTaskInfo> _webFarmTaskInfoProvider;
-
         private static readonly string[] s_columnNames =
         [
             nameof(WebFarmServerTaskInfo.ErrorMessage),
             nameof(WebFarmServerTaskInfo.TaskID)
         ];
 
-        public WebFarmTaskHealthCheck(IInfoProvider<WebFarmServerTaskInfo> webFarmTaskInfoProvider)
+        public WebFarmTaskHealthCheck(IInfoProvider<WebFarmServerTaskInfo> infoProvider) : base(infoProvider)
         {
-            _webFarmTaskInfoProvider = webFarmTaskInfoProvider;
         }
-
 
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
             CancellationToken cancellationToken = default)
@@ -53,14 +49,14 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
             }
         }
 
-
-        protected override async Task<List<WebFarmServerTaskInfo>> GetDataForTypeAsync(CancellationToken cancellationToken = default)
+        protected override async Task<List<WebFarmServerTaskInfo>> GetDataForTypeAsync(
+            CancellationToken cancellationToken = default)
         {
             ContextUtils.ResetCurrent();
 
             using (new CMSConnectionScope(true))
             {
-                var query = _webFarmTaskInfoProvider
+                var query = Provider
                     .Get()
                     .Columns(s_columnNames)
                     .WhereNotNullOrEmpty(nameof(WebFarmServerTaskInfo.ErrorMessage))
@@ -72,7 +68,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
         protected override IReadOnlyDictionary<string, object> GetErrorData(IEnumerable<WebFarmServerTaskInfo> objects)
         {
-            var dictionary = objects.ToDictionary<WebFarmServerTaskInfo, string, object>(webFarmTask => webFarmTask.TaskID.ToString(), webFarmTask => webFarmTask.ErrorMessage);
+            var dictionary = objects.ToDictionary<WebFarmServerTaskInfo, string, object>(
+                webFarmTask => webFarmTask.TaskID.ToString(), webFarmTask => webFarmTask.ErrorMessage);
 
             return new ReadOnlyDictionary<string, object>(dictionary);
         }
