@@ -119,6 +119,10 @@ The `WebFarmHealthCheck` class is an implementation of the `IHealthCheck` interf
 
 The `WebFarmTaskHealthCheck` class is an implementation of the `IHealthCheck` interface. It is responsible for checking the health of the web farm server tasks. 
 
+### WebsiteChannelHealthCheck
+
+The `WebsiteChannelHealthCheck` class is an implementation of the `IHealthCheck` interface. It is responsible for checking if any Website Channels are configured. 
+
 ## Built With
 
 * [Microsoft.AspNetCore.Health](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks/) - The web framework used
