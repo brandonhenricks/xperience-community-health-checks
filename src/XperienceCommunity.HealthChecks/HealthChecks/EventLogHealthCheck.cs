@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CMS.Base;
+using CMS.Base.Internal;
 using CMS.DataEngine;
 using CMS.EventLog;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -68,7 +69,8 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                         .WhereNotEquals(nameof(EventLogInfo.Source), nameof(HealthReport))
                         .And()
                         .WhereGreaterOrEquals(nameof(EventLogInfo.EventTime), DateTime.UtcNow.AddHours(-12)))
-                    .Columns(s_columnNames);
+                    .Columns(s_columnNames)
+                    .TopN(100);
 
                 return await query.ToListAsync(cancellationToken: cancellationToken);
             }

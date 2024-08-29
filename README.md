@@ -18,7 +18,7 @@ To integrate Kentico Health Checks into your ASP.NET Core application, follow th
 
 1. **Ensure Prerequisites:**
     - Make sure your application is running on `.NET 6` or `.NET 8`.
-    - Verify that your application is a Xperience by Kentico application.
+    - Verify that your application is a Xperience by Kentico application on version 28.2.0 or greater.
 
 2. **Install Required Package:**
     - You need the `Microsoft.Extensions.Diagnostics.HealthChecks` package for utilizing the `IHealthChecksBuilder` interface. If not already installed, you can add it via NuGet with the following command:
