@@ -1,5 +1,4 @@
 ﻿using CMS.Base;
-using CMS.Base.Internal;
 using CMS.DataEngine;
 using CMS.Websites;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
