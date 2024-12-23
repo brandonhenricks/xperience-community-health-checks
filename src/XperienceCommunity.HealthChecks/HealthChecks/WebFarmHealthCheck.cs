@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using CMS.Base;
-using CMS.Base.Internal;
 using CMS.DataEngine;
 using CMS.WebFarmSync;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
