@@ -24,7 +24,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
             if (data.Count == 0)
             {
-                return HealthCheckResult.Unhealthy("There are no Website Channels Configured.");
+                return GetHealthCheckResult(context, "There are no Website Channels Configured.", GetErrorData(data));
             }
 
             return HealthCheckResult.Healthy($"There are {data.Count} Website Channels configured.");

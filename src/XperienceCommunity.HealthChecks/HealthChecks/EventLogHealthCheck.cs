@@ -44,7 +44,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                     .ToList();
 
                 return exceptionEvents.Count >= 25
-                    ? HealthCheckResult.Degraded($"There are {exceptionEvents.Count} errors in the event log.", null,
+                    ? GetHealthCheckResult(context, $"There are {exceptionEvents.Count} errors in the event log.",
                         GetErrorData(exceptionEvents))
                     : HealthCheckResult.Healthy();
             }

@@ -61,5 +61,25 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         /// <param name="objects">The Kentico objects.</param>
         /// <returns>A read-only dictionary containing the error data.</returns>
         protected abstract IReadOnlyDictionary<string, object> GetErrorData(IEnumerable<T> objects);
+
+        /// <summary>
+        /// Gets the health check result based on the context and error message.
+        /// </summary>
+        /// <param name="context">The health check context.</param>
+        /// <param name="errorMessage">The error message to include in the health check result.</param>
+        /// <param name="data">Optional. Additional data to include in the health check result.</param>
+        /// <returns>The health check result based on the failure status in the context.</returns>
+        protected HealthCheckResult GetHealthCheckResult(HealthCheckContext context, string errorMessage,
+            IReadOnlyDictionary<string, object>? data = null)
+        {
+            var failureStatus = context?.Registration?.FailureStatus ?? HealthStatus.Unhealthy;
+
+            return failureStatus switch
+            {
+                HealthStatus.Unhealthy => HealthCheckResult.Unhealthy(errorMessage, null, data),
+                HealthStatus.Degraded => HealthCheckResult.Degraded(errorMessage, null, data),
+                _ => HealthCheckResult.Unhealthy(errorMessage, null, data)
+            };
+        }
     }
 }

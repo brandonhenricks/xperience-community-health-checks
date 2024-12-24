@@ -21,7 +21,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         {
             if (!CMSApplication.ApplicationInitialized.HasValue)
             {
-                return HealthCheckResult.Healthy("Application is not Initialized.");
+                return HealthCheckResult.Degraded("Application is not Initialized.");
             }
 
             try
@@ -30,14 +30,14 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
                 if (webFarmServers.Count == 0)
                 {
-                    return HealthCheckResult.Degraded("No Web Farm Info Returned");
+                    return GetHealthCheckResult(context, "No Web Farm Info Returned", null);
                 }
 
                 foreach (var server in webFarmServers)
                 {
                     if (server.Status == WebFarmServerStatusEnum.NotResponding)
                     {
-                        return HealthCheckResult.Degraded($"Server {server.ServerName} is not responding.", null,
+                        return GetHealthCheckResult(context, $"Server {server.ServerName} is not responding.",
                             GetData(webFarmServers));
                     }
                 }

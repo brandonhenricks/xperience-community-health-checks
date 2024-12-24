@@ -41,7 +41,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
                 if (filtered.Count > 0)
                 {
-                    return HealthCheckResult.Degraded("Email Items are not being sent.", data: GetErrorData(filtered));
+                    GetHealthCheckResult(context, "Email Items are not being sent.", GetErrorData(filtered));
                 }
 
                 return HealthCheckResult.Healthy("Email Items Appear to be Healthy.");
