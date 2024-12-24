@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using XperienceCommunity.HealthChecks.HealthChecks;
 
 namespace XperienceCommunity.HealthChecks
@@ -23,11 +24,11 @@ namespace XperienceCommunity.HealthChecks
         {
             return builder
                 .AddCheck<ApplicationInitializedHealthCheck>("Application Initialized Health Check", tags: s_tags)
-                .AddCheck<EventLogHealthCheck>("Event Log Health Check", tags: s_tags)
-                .AddCheck<WebFarmHealthCheck>("Web Farm Health Check", tags: s_tags)
-                .AddCheck<WebFarmTaskHealthCheck>("Web Farm Task Health Check", tags: s_tags)
-                .AddCheck<WebsiteChannelHealthCheck>("Website Channel Health Check", tags: s_tags)
-                .AddCheck<EmailHealthCheck>("Email Health Check", tags: s_tags);
+                .AddCheck<EventLogHealthCheck>("Event Log Health Check", failureStatus: HealthStatus.Degraded, tags: s_tags)
+                .AddCheck<WebFarmHealthCheck>("Web Farm Health Check", failureStatus: HealthStatus.Unhealthy, tags: s_tags)
+                .AddCheck<WebFarmTaskHealthCheck>("Web Farm Task Health Check", failureStatus: HealthStatus.Degraded, tags: s_tags)
+                .AddCheck<WebsiteChannelHealthCheck>("Website Channel Health Check", failureStatus: HealthStatus.Unhealthy, tags: s_tags)
+                .AddCheck<EmailHealthCheck>("Email Health Check", failureStatus: HealthStatus.Degraded, tags: s_tags);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         {
             if (!CMSApplication.ApplicationInitialized.HasValue)
             {
-                return HealthCheckResult.Healthy();
+                return HealthCheckResult.Degraded("Application is not Initialized.");
             }
 
             try

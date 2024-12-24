@@ -69,7 +69,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         /// <param name="errorMessage">The error message to include in the health check result.</param>
         /// <param name="data">Optional. Additional data to include in the health check result.</param>
         /// <returns>The health check result based on the failure status in the context.</returns>
-        protected HealthCheckResult GetHealthCheckResult(HealthCheckContext context, string errorMessage,
+        public HealthCheckResult GetHealthCheckResult(HealthCheckContext context, string errorMessage,
             IReadOnlyDictionary<string, object>? data = null)
         {
             var failureStatus = context?.Registration?.FailureStatus ?? HealthStatus.Unhealthy;

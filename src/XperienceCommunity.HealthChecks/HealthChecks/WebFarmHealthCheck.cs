@@ -30,7 +30,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
                 if (webFarmServers.Count == 0)
                 {
-                    return GetHealthCheckResult(context, "No Web Farm Info Returned", null);
+                    return GetHealthCheckResult(context, "No Web Farm Info Returned");
                 }
 
                 foreach (var server in webFarmServers)
