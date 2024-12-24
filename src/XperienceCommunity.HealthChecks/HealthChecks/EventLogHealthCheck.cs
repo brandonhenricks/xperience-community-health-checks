@@ -46,7 +46,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                 return exceptionEvents.Count >= 25
                     ? GetHealthCheckResult(context, $"There are {exceptionEvents.Count} errors in the event log.",
                         GetErrorData(exceptionEvents))
-                    : HealthCheckResult.Healthy();
+                    : HealthCheckResult.Healthy($"There are {exceptionEvents.Count} in the event log.");
             }
             catch (Exception e)
             {
