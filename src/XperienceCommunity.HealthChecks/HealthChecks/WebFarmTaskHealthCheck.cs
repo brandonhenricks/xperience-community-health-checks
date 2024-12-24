@@ -29,7 +29,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
             if (!CMSApplication.ApplicationInitialized.HasValue)
             {
-                return result;
+                return HealthCheckResult.Degraded("Application is not Initialized.");
             }
 
             try
@@ -38,7 +38,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
                 if (data.Count != 0)
                 {
-                    result = HealthCheckResult.Degraded("Web Farm Tasks Contain Errors.", null, GetErrorData(data));
+                    return GetHealthCheckResult(context, "Web Farm Tasks Contain Errors.", GetErrorData(data));
                 }
 
                 return result;

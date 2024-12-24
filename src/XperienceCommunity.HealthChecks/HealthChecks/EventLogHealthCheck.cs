@@ -31,7 +31,7 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
         {
             if (!CMSApplication.ApplicationInitialized.HasValue)
             {
-                return HealthCheckResult.Healthy();
+                return HealthCheckResult.Degraded("Application is not Initialized.");
             }
 
             try
@@ -44,9 +44,9 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
                     .ToList();
 
                 return exceptionEvents.Count >= 25
-                    ? HealthCheckResult.Degraded($"There are {exceptionEvents.Count} errors in the event log.", null,
+                    ? GetHealthCheckResult(context, $"There are {exceptionEvents.Count} errors in the event log.",
                         GetErrorData(exceptionEvents))
-                    : HealthCheckResult.Healthy();
+                    : HealthCheckResult.Healthy($"There are {exceptionEvents.Count} in the event log.");
             }
             catch (Exception e)
             {
