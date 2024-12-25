@@ -12,6 +12,13 @@ If you are using Kentico XP 13, please use the package [XperienceCommunity.AspNe
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+## Library Version Matrix
+
+| Xperience Version | Library Version |
+| ----------------- | --------------- |
+| >= 29.1.0         | 1.0.6           |
+| >= 28.3.0         | 1.0.4           |
+
 ### Installation Instructions
 
 To integrate Kentico Health Checks into your ASP.NET Core application, follow these steps:
