@@ -67,8 +67,13 @@ namespace XperienceCommunity.HealthChecks.HealthChecks
 
         protected override IReadOnlyDictionary<string, object> GetErrorData(IEnumerable<WebFarmServerInfo> objects)
         {
-            var dictionary = objects.ToDictionary<WebFarmServerInfo, string, object>(webFarm => webFarm.ServerName,
-                webFarmTask => webFarmTask.Status.ToString());
+            // If duplicate ServerNames exist, take the first occurrence
+            var dictionary = objects
+                .GroupBy(server => server.ServerName)
+                .ToDictionary(
+                    group => group.Key,
+                    group => (object)group.First().Status.ToString() // Cast to object for value
+                );
 
             return new ReadOnlyDictionary<string, object>(dictionary);
         }
