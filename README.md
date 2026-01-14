@@ -14,18 +14,18 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Library Version Matrix
 
-| Xperience Version | Library Version | .NET Version |
-| ----------------- | --------------- | ------------ |
-| >= 31.0.2         | >= 1.0.8        | .NET 8.0     |
-| >= 29.1.0         | 1.0.6           | .NET 6.0/8.0 |
-| >= 28.3.0         | 1.0.4           | .NET 6.0/8.0 |
+| Xperience Version | Library Version | .NET Version     |
+| ----------------- | --------------- | ---------------- |
+| >= 31.0.2         | >= 1.0.8        | .NET 8.0/10.0    |
+| >= 29.1.0         | 1.0.6           | .NET 6.0/8.0     |
+| >= 28.3.0         | 1.0.4           | .NET 6.0/8.0     |
 
 ### Installation Instructions
 
 To integrate Kentico Health Checks into your ASP.NET Core application, follow these steps:
 
 1. **Ensure Prerequisites:**
-    - Make sure your application is running on `.NET 8`.
+    - Make sure your application is running on `.NET 8` or `.NET 10`.
     - Verify that your application is a Xperience by Kentico application on version 31.0.2 or greater.
     - **Note:** For .NET 6 support, use library version 1.0.6 or earlier with Xperience version 28.3.0-29.x.
 
