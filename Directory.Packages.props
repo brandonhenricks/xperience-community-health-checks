@@ -3,10 +3,10 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Kentico.Xperience.Core" Version="[29.1.0,)" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[8.0.1,)" />
-    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="[8.0.7,)" />
-    <PackageVersion Include="CSharpFunctionalExtensions" Version="2.41.0" />
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0.0" />
+    <PackageVersion Include="Kentico.Xperience.Core" Version="31.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="10.0.2" />
+    <PackageVersion Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.102" />
   </ItemGroup>
 </Project>
